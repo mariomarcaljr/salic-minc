@@ -51,7 +51,7 @@
 </style>
 
 <?php
-echo $this->partial("consultardadosprojeto/inc/menu.inc.php", $this); // menu de consultar dados do projeto
+    echo $this->partial("consultardadosprojeto/inc/menu.inc.php", $this); // menu de consultar dados do projeto
 
 $urlPronac = null;
 $urlPronac = (isset($this->idPronac)) ? "?idPronac=".Seguranca::encrypt($this->idPronac) : "";

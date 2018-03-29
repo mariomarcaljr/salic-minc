@@ -352,7 +352,7 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
         
         # FASE 5 - PRESTA��O DE CONTAS DO PROPONENTE - RELAT�RIO DE CUMPRIMENTO DO OBJETO
         if ($contaLiberada == 'S' and $dataAtualBanco > $dadosProjeto->DtFinalExecucao) {
-        $Analise = 1;
+            $Analise = 1;
             $Execucao = 1;
             $PrestacaoDeContas = 1;
             $Marcas = 0;

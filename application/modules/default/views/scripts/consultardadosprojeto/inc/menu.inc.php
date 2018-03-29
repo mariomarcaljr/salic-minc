@@ -222,30 +222,21 @@
         } ?>
 
                 <!-- ======================= Readequação  =======================   -->
-                <?php if ($this->blnProponente && ($this->fnLiberarLinks['Readequacao'] || $this->fnLiberarLinks['Readequacao_50'])) {
-            ?>
-                <div class="sanfonaDiv" style="display:none;"></div>
-                <a href="#" title="Execução" class="ancoraExecucao" onclick="return false;">Readequa&ccedil;&atilde;o</a>
-                <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
-                    <?php if ($this->fnLiberarLinks['Readequacao_50']) {
-                ?>
-                    <a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'remanejamento-menor'), '', true); ?>?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Ir para Remanejamento &le; 50%">Remanejamento &le; 50%</a>
-                    <?php
-            } ?>
-
-                    <?php if ($this->fnLiberarLinks['ReadequacaoPlanilha']) {
-                ?>
-                    <a href="<?php echo $this->url(array('controller' => 'readequacoes', 'action' => 'planilha-orcamentaria'), '', true); ?>?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Ir para Solicita&ccedil;&otilde;es Gerais">Planilha orçament&aacute;ria</a>
-		    <?php
-            } ?>
-		    <?php if ($this->fnLiberarLinks['Readequacao']) {
-                ?>
-                    <a href="<?php echo $this->url(array('controller' => 'readequacoes', 'action' => 'index'), '', true); ?>?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Ir para Solicita&ccedil;&otilde;es Gerais">Solicita&ccedil;&otilde;es Gerais</a>
-                    <?php
-            } ?>
-                </div>
-                <?php
-        } ?>
+                <?php if ($this->blnProponente && ($this->fnLiberarLinks['Readequacao'] || $this->fnLiberarLinks['Readequacao_50'])) { ?>
+                    <div class="sanfonaDiv" style="display:none;"></div>
+                    <a href="#" title="Execução" class="ancoraExecucao" onclick="return false;">Readequa&ccedil;&atilde;o</a>
+                    <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
+                        <?php if ($this->fnLiberarLinks['Readequacao_50']) { ?>
+                            <a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'remanejamento-menor'), '', true); ?>?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Ir para Remanejamento &le; 50%">Remanejamento &le; 50%</a>
+                        <?php } ?>
+                        <?php if ($this->fnLiberarLinks['ReadequacaoPlanilha']) { ?>
+                            <a href="<?php echo $this->url(array('controller' => 'readequacoes', 'action' => 'planilha-orcamentaria'), '', true); ?>?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Ir para Solicita&ccedil;&otilde;es Gerais">Planilha orçament&aacute;ria</a>
+                        <?php } ?>
+                        <?php if ($this->fnLiberarLinks['Readequacao']) { ?>
+                            <a href="<?php echo $this->url(array('controller' => 'readequacoes', 'action' => 'index'), '', true); ?>?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Ir para Solicita&ccedil;&otilde;es Gerais">Solicita&ccedil;&otilde;es Gerais</a>
+                        <?php } ?>
+                    </div>
+                <?php } ?>
                 <!-- ==================== FIM - Readequação  =======================   -->
 
                 <!-- ======================= SOLICITAR PRAZO CAPTAÇÃO  =======================   -->
