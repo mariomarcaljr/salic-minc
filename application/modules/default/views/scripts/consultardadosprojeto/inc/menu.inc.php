@@ -120,6 +120,97 @@
             }
             $resp = array();
         ?>
+
+        <div id="projeto-menu">
+
+            <projeto-menu idpronac="<?php echo $codPronac;?>"></projeto-menu>
+        </div>
+        <script type="text/x-template" id="template-menu">
+            <div>
+                <ul class="">
+                    <li v-for="(value, key) in menu"> 
+                        <template v-if="value.sub || !value.ajax">
+                        </template>
+                        <template v-else-if="value.ajax">
+                            <a v-on:click.prevent="carregaDados(value.uri + idpronac, 'conteudo')" href="#">{{value.label}}</a>
+                        </template>
+                        <template v-else>
+                            <a href="value.uri">{{value.label}}</a>
+                        </template>
+                        <template v-if="value.sub">
+                            <ul class="collapsible" data-collapsible="accordion">
+                                <li>
+                                    <div class="collapsible-header">{{value.sub[0].label}}</div>
+                                    <div class="collapsible-body">
+                                        <ul>
+                                            <li v-for="(v, k) in value.sub">
+                                                <template v-if="k==0">
+                                                </template>
+                                                <template v-else-if="value.ajax">
+                                                    <a v-on:click.prevent="carregaDados(v.uri + idpronac, 'conteudo')" href="#">value.sub[k+1].label</a>
+                                                </template>
+                                                <template v-else>
+                                                    <a :href="v.uri">{{v.label}}</a>
+                                                </template>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </template>
+                    </li>
+                </ul>
+            </div>
+        </script>
+        <script>
+            // register
+            Vue.component('projeto-menu', {
+                template: '#template-menu',
+                data: function() {
+                    return {
+                        menu: { },
+                    }
+                },
+                props: ['idpronac'],
+                mounted: function() {
+                  $3('.collapsible').collapsible('open', 0);
+                    var vue = this;
+
+                    this.$data.menu = [];
+                    url = "/projeto/menu";
+                    $3.ajax({
+                        type: "GET",
+                        url:url
+                    }).done(function(data) {
+                        vue.$data.menu = data;
+                        console.log(data);
+                    });
+                },
+                updated: function() {
+                          $3('.collapsible').collapsible();
+                },
+                methods: {
+                    carregaDados: function (url, divRetorno){
+                        //$("#titulo").html('');
+                        console.log(url);
+                        $("#conteudo").html('<br><br><center>Aguarde, carregando dados...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center><br><br>');
+                        $.ajax({
+                            url : url,
+                            success: function(data){
+                                //alert(data);
+                                $("#"+divRetorno).html(data);
+                            },
+                            type : 'post'
+                        });
+                    }
+                }
+            });
+
+            var menu = new Vue({
+                el: '#projeto-menu'
+            });
+        </script>
+
         <div id="menuContexto">
             <div class="top"></div>
             <div id="qm0" class="qmmc sanfona">
@@ -502,3 +593,4 @@
         );
     });
 </script>
+
