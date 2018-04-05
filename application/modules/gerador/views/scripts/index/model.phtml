@@ -1,0 +1,19 @@
+<?php
+
+$className = ucfirst($this->modulo) . '_Model_' . ucfirst($this->nomeTabela);
+
+echo "<?php
+
+/**
+ * {$className}
+ *
+ * @uses Zend
+ * @uses _Db_Table
+ * @package Model
+ */
+class $className extends MinC_Db_Table_Abstract
+{
+    protected \$_name = '{$this->nomeTabela}';
+    protected \$_schema = '{$this->schema}';
+}
+";

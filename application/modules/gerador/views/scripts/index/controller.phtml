@@ -1,0 +1,24 @@
+<?php
+
+$className = ucfirst($this->modulo) . '_' . ucfirst($this->nomeTabela);
+
+echo "<?php
+
+class {$className}Controller extends MinC_Controller_Action_Abstract
+{
+    public function init()
+    {
+        parent::init();
+        parent::perfil();
+        \$auth = Zend_Auth::getInstance(); // instancia da autenticacao
+    }
+
+    public function indexAction()
+    {
+    }
+
+    public function formularioAction()
+    {
+    }
+}
+";

@@ -1,0 +1,160 @@
+<?php
+$tableName = key($this->tabela);
+?>
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col s12 m9 l10">
+                <h1>Listar <?php echo $tableName; ?></h1>
+                <?php echo "
+                <?php
+                gerarNovoBreadCrumb(array(
+                    array('Listar {$tableName}' => '')
+                ));
+                ?>
+                ";?>
+            </div>
+            <div class="col s12 m3 l2 right-align">
+                <a href="javascript:voltar();" title="Página Anterior"title="Página Anterior" class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">keyboard_return</i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <div  id="propostasCadastradas">
+                <table class="bordered striped conteudoImprimivel" id="tabelaListagem">
+                    <thead>
+                    <tr>
+                        <?php foreach($this->tabela as $campo){
+                        echo "<th>{$campo['coluna']}</th>
+                        ";
+                        } ?>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<style type="text/css">
+    select {
+        height: 35px;
+        font-size: 15px;
+        color: #212121;
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.expandir').live('click', function () {
+            var elemento = $(this),
+                idAgente = elemento.attr('idAgente');
+
+            $('.mostraProposta_' + idAgente).toggle();
+            if (elemento.hasClass('btn_adicionar')) {
+                elemento.addClass('btn_remover');
+                elemento.removeClass('btn_adicionar');
+            } else {
+                elemento.addClass('btn_adicionar');
+                elemento.removeClass('btn_remover');
+            }
+        });
+
+        $("#frmNovaProposta").validate({
+            rules: {
+                mecanismo: {required: true},
+                proponente: {required: true}
+            },
+            messages: {
+                mecanismo: {required: " Obrigat&oacute;rio"},
+                proponente: {required: " Obrigat&oacute;rio"}
+            },
+            submitHandler: function (form) {
+                //form.submit();
+                $("#msgValidaProponente").html("");
+                var nomeProponente = $('#proponente option:selected').text();
+                if (nomeProponente == "- TODOS -") {
+                    $("#msgValidaProponente").html("<font color='red'>Informe o nome de um Proponente.</font>");
+                    return false;
+                }
+                jqAjaxForm(form, 'propostasCadastradas');
+            }
+        });
+
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.css"/>
+<script type="text/javascript">
+    (function ($) {
+        $(document).ready(function () {
+
+            var table =  $('#tabelaListagem').DataTable(
+                {
+                    "language": {
+                        "url": "https://cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                    }
+                    , "lengthChange": true
+                    , "ajax": {
+                        url: "/proposta/manterpropostaincentivofiscal/listar-propostas-ajax",
+                        data: {"idagente": function (d) {
+                                return $('#proponente').val();
+                            }},
+                        type: "POST"
+                    },
+                    "processing": true,
+                    "serverSide": true,
+                    "bFilter": false,
+                    "aoColumnDefs": [
+                        {'bSortable': false, 'aTargets': [3]}
+                    ],
+                    "order": [[ 0, 'desc' ], [ 1, 'asc' ]],
+                    "columns": [
+                        {
+                            data: null,
+                            "name": "idpreprojeto",
+                            render: function (data, type, row) {
+                                return '<a class="btn waves-effect waves-darrk white black-text small" href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'manterpropostaincentivofiscal', 'action' => 'identificacaodaproposta')); ?>/idPreProjeto/' + data.idpreprojeto + '">'
+                                    + data.idpreprojeto + '</a>'
+                            }
+                        },
+                        {
+                            "name": "nomeprojeto",
+                            "data": "nomeprojeto"
+
+                        },
+                        {
+                            "name": "nomeproponente",
+                            "data": "nomeproponente"
+
+                        },
+                        {
+                            "name": "situacao",
+                            "data": "situacao"
+
+                        }
+                    ]
+                }
+            );
+
+
+            $("#localizar").click(function () {
+                table.ajax.reload();
+            });
+
+        });
+    }($.noConflict(true)));
+</script>
