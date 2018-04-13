@@ -291,6 +291,12 @@
 
     </div>
     </div>
+
+    <div id="id_planilha">
+        <planilha-aprovacao>
+        </planilha-aprovacao>
+    </div>
+
     </div>
      <div class="fixed-action-btn ">
         <a class="btn-floating btn-large red">
@@ -536,6 +542,125 @@
     </script>
 </div>
 
+
+<script type="text/x-template" id="planilha-aprovacao-tamplate">
+    <div class="planilha card">
+        {{planilha}}
+        <ul class="no-border no-margin">
+            <template v-for="fontes of planilha">
+                <li>
+                    <div class="collapsible-header active red-text fonte">
+                        <i class="material-icons">beenhere</i>{{fontes.descricao}}<span class="badge"></span>
+                    </div>
+                    <ul class="collapsible no-border no-margin" data-collapsible="expandable">
+                        <li v-for="produto of fontes.produtos">
+                            <div class="collapsible-header active green-text" style="padding-left: 30px;" >
+                                <i class="material-icons">perm_media</i>{{produto.descricao}}<span class="badge"></span>
+                            </div>
+                            <div class="collapsible-body ">
+                                <ul class="collapsible no-border no-margin" data-collapsible="expandable">
+                                    <li v-for="etapa of produto.etapas">
+                                         <div class="collapsible-header active orange-text" style="padding-left: 50px;">
+                                            <i class="material-icons">label</i>{{etapa.descricao}}<span class="badge"></span>
+                                        </div>
+                                        <div class="collapsible-body no-padding no-border">
+                                            <ul class="collapsible no-border no-margin" data-collapsible="expandable">
+                                                <li v-for="local of etapa.ufs">
+                                                     <div class="collapsible-header active blue-text" style="padding-left: 70px;">
+                                                        <i class="material-icons">place</i>{{local.descricao}} <span class="badge"></span>
+                                                    </div>
+                                                    <div class="collapsible-body no-padding margin20 scroll-x">
+                                                        <table class="bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Item</th>
+                                                                    <th>Dias</th>
+                                                                    <th>Qtde</th>
+                                                                    <th>Ocor.</th>
+                                                                    <th>Vl. Unit&aacute;rio</th>
+                                                                    <th>Vl. Solicitado</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr v-for="row of local.itens" 
+                                                                    :key="row.idPlanilhaProposta"  
+                                                                >
+                                                                    <td>{{row.id}}</td>
+                                                                    <td>{{row.Item}}</td>
+                                                                    <td>{{row.QtdeDias}}</td>
+                                                                    <td>{{row.Quantidade}}</td>
+                                                                    <td>{{row.Ocorrencia}}</td>
+                                                                    <td>{{(row.vlUnitario)}}</td>
+                                                                    <td>{{(row.vlSolicitado)}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </template>
+        </ul>
+    </div>
+</script>
+
+<script>
+    Vue.component('planilha-aprovacao', {
+        template: '#planilha-aprovacao-tamplate',
+        props: { },
+        data:function() {
+            return {
+                planilha: 1
+            }
+        },
+        mounted: function(){
+            vue = this;
+
+            $3.ajax({
+              type: "GET",
+              url: '/prestacao-contas/prestacao-contas/planilha'
+            })
+            .done(function(data) {
+                console.log(data);
+                vue.planilha = data.tipos_incentivo;
+                /* vue.iniciarCollapsible(); */
+            })
+            .fail(function(){ 
+            });
+        },
+        methods:{
+            iniciarCollapsible: function () {
+                /* console.log('int colapse'); */
+                /* $3('.collapsible').each(function() { */
+                /*     console.log(this); */
+                /*     $3(this).collapsible(); */
+                /* }); */
+            }
+        },
+        updated: function(){
+            $3('.collapsible').each(function() {
+                console.log(this);
+                $3(this).collapsible();
+            });
+        }
+        /* watch: { */
+        /*     planilha: function (value) { */
+        /*         this.planilha = value; */
+        /*         this.iniciarCollapsible(); */
+        /*     } */
+        /* }, */
+    });
+</script>
+
+
+
 <script type="text/javascript" src="/public/js/componentes/sl-btn-visualizar.js" ></script>
 <script type="text/javascript" src="/public/js/componentes/sl-collapse-visualizar.js" ></script>
 <script type="text/javascript" src="/public/js/componentes/salic-table-easy.js" ></script>
@@ -544,5 +669,10 @@
     var bus = new Vue({});
     var app = new Vue({
         el: '#btn_consolidacao'
+    });
+
+
+    var planilha = new Vue({
+        el: '#id_planilha'
     });
 </script>

@@ -20,11 +20,6 @@ class Proposta_Model_DbTable_Verificacao extends MinC_Db_Table_Abstract
 
     public function buscarFonteRecurso()
     {
-//        $sql = "select Verificacao.idVerificacao, ltrim(Verificacao.Descricao) as VerificacaoDescricao
-//                from SAC.dbo.Verificacao as Verificacao
-//                inner join SAC.dbo.Tipo as Tipo
-//                on Verificacao.idTipo = Tipo.idTipo
-//                where Tipo.idTipo = 5";
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(

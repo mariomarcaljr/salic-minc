@@ -97,4 +97,84 @@ class PrestacaoContas_PrestacaoContasController extends MinC_Controller_Action_A
         /* $this->redirect('/prestacao-contas/prestacao-contas/amostragem/idPronac/' . $idPronac . '/tipoAvaliacao/90'); */
     }
 
+    public function planilhaAction()
+    {
+
+        $this->_helper->json([
+            'tipos_incentivo' => [
+                109 => [
+                    'id' => 109,
+                    'descricao' => 'Incentivo Fiscal Federal',
+                    'produtos' => [
+                        [
+                            'id' => 0,
+                            'descricao' => 'Custos Administrativos',
+                            'etapas' => [
+                                1 => [
+                                    'id' => 1,
+                                    'descricao' => 'Pre Produção',
+                                    'ufs' => [
+                                        1 => [
+                                            'id' => 1,
+                                            'descricao' => 'DF',
+                                            'itens' =>[
+                                                1 => [ 
+                                                    'id' => 1,
+                                                    'descricao' => 'Afinador',
+                                                    'quantidade' => 100,
+                                                    'valor' => 100.10,
+                                                ]
+                                            ]
+                                        ],
+                                        2 => [
+                                            'id' =>2,
+                                            'descricao' => 'SP'
+                                        ]
+                                    ]
+                                ],
+                                2 => [
+                                    'id' => 2,
+                                    'descricao' => 'Produção',
+                                ]
+
+                            ]
+                        ],
+                        [
+                            'id' => 0,
+                            'descricao' => 'Custos Administrativos',
+                            'etapas' => [
+                                1 => [
+                                    'id' => 1,
+                                    'descricao' => 'Pre Produção',
+                                    'ufs' => [
+                                        1 => [
+                                            'id' => 1,
+                                            'descricao' => 'DF',
+                                            'itens' =>[
+                                                1 => [ 
+                                                    'id' => 1,
+                                                    'descricao' => 'Afinador',
+                                                    'quantidade' => 100,
+                                                    'valor' => 100.10,
+                                                ]
+                                            ]
+                                        ],
+                                        2 => [
+                                            'id' =>2,
+                                            'descricao' => 'SP'
+                                        ]
+                                    ]
+                                ],
+                                2 => [
+                                    'id' => 2,
+                                    'descricao' => 'Produção',
+                                ]
+
+                            ]
+                        ]
+                    ]
+                ],
+            ]
+        ]);
+    }
 }
