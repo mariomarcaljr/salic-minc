@@ -9,7 +9,8 @@ class Proposta_Model_Verificacao extends MinC_Db_Model
 
     const PROPOSTA_APROVADA_EM_EDITAIS = 618;
     const PROPOSTA_COM_CONTRATOS_DE_PATROCINIOS = 619;
-
+    const INCENTIVO_FISCAL_FEDERAL = 109;
+    
     /**
      * @return mixed
      */

@@ -850,11 +850,19 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
         );
         
         $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
-        $PlanilhaAtiva = $tbPlanilhaAprovacao->valorTotalPlanilhaAtiva($idPronac)->current();
+        $PlanilhaAtiva = $tbPlanilhaAprovacao->valorTotalPlanilhaAtiva(
+            $idPronac,
+            [
+                Proposta_Model_Verificacao::INCENTIVO_FISCAL_FEDERAL
+            ]
+        )->current(); 
         
         $PlanilhaReadequada = $tbPlanilhaAprovacao->valorTotalPlanilhaReadequada(
                             $idPronac,
-                            $idReadequacao
+                            $idReadequacao,
+                            [
+                                Proposta_Model_Verificacao::INCENTIVO_FISCAL_FEDERAL
+                            ]
         )->current();
         
         if ($PlanilhaReadequada['Total'] > 0) {

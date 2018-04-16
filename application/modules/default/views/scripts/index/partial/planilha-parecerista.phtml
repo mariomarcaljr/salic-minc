@@ -50,6 +50,7 @@
                                 <tr>
                                     <th>&nbsp;</th>
                                     <th>Item</th>
+				    <th>Unidade</th>
                                     <th>Vl. Solicitado</th>
                                     <th>Dias</th>
                                     <th>Qtde</th>
@@ -89,9 +90,10 @@
                                             <?php if($this->link && $planilha['idFonte'] == 109){ // Se for incentivo fiscal, coloca o link para editar. ?>
                                             <a href="#" class="editarItem" idPlanilhaProjeto="<?php echo $planilha['idPlanilhaProjeto']; ?>"><?php echo $planilha['Item']; ?></a>
                                             <?php } else {
-                                                echo $planilha['Item']; ?>
+                                            echo $planilha['Item']; ?>
                                             <?php } ?>
                                         </td>
+                                        <td class="direita textUnidade"><?php echo $planilha['Unidade']; ?></td>
                                         <td class="direita"><?php echo @number_format($planilha['vlSolicitado'], 2, ",", "."); ?></td>
                                         <td class="direita textDias"><?php echo $planilha['QtdeDias']; ?></td>
                                         <td class="direita textQuantidade"><?php echo $planilha['Quantidade']; ?></td>

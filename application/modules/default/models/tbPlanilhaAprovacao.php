@@ -5,6 +5,7 @@ class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract
     protected $_name = "tbPlanilhaAprovacao";
     protected $_primary = "idPlanilhaAprovacao";
 
+    
 
     public function init()
     {
@@ -320,10 +321,10 @@ class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract
      * Método para retornar o valor total da planilha ativa
      * @access public
      * @param integer $idPronac
-     * @param integer $idPlanilhaItem
+     * @param array $nrFonteRecurso
      * @return boolean
      */
-    public function valorTotalPlanilhaAtiva($idPronac) {
+    public function valorTotalPlanilhaAtiva($idPronac, $nrFonteRecurso = []) {
         
         $select = $this->select();
         $select->setIntegrityCheck(false);
@@ -335,6 +336,10 @@ class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract
         );
         $select->where('a.idPronac = ?', $idPronac);
         $select->where('a.stAtivo = ?', 'S');
+
+        if (!empty($nrFonteRecurso)) {
+            $select->where('a.nrFonteRecurso IN(?)', $nrFonteRecurso);
+        }
                 
         return $this->fetchAll($select);
     }
@@ -370,9 +375,10 @@ class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract
      * @access public
      * @param integer $idPronac
      * @param integer $idReadequacao
+     * @param array $nrFonteRecurso
      * @return boolean
      */
-    public function valorTotalPlanilhaReadequada($idPronac, $idReadequacao) {
+    public function valorTotalPlanilhaReadequada($idPronac, $idReadequacao, $nrFonteRecurso = []) {
         
         $select = $this->select();
         $select->setIntegrityCheck(false);
@@ -387,6 +393,10 @@ class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract
         $select->where('a.stAtivo = ?', 'N');
         $select->where('a.tpAcao != ?', 'E');
         $select->where('a.idReadequacao = ?', $idReadequacao);
+        
+        if (!empty($nrFonteRecurso)) {
+            $select->where('a.nrFonteRecurso IN(?)', $nrFonteRecurso);   
+        }        
         
         return $this->fetchAll($select);
     }

@@ -71,7 +71,7 @@ class Agente_Model_EnderecoNacionalDAO extends MinC_Db_Table_Abstract
         $i =  $db->insert('AGENTES.dbo.EnderecoNacional', $dados);
     }
 
-    public function inserir($dados)
+    public function inserir($dados, $dbg = null)
     {
         $db = Zend_Db_Table::getDefaultAdapter();
 

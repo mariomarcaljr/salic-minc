@@ -54,6 +54,7 @@
                                 <tr>
                                     <th>&nbsp;</th>
                                     <th>Item</th>
+				    <th>Unidade</th>
                                     <th>Dias</th>
                                     <th>Qtde</th>
                                     <th>Ocor.</th>
@@ -105,18 +106,19 @@
                                                     $planilha['vlAprovado'] > $planilha['vlComprovado']
 						)
                                             ) { ?>
-                                                <a href="#"
-						   style="color: <?php echo $corLinha; ?> !important;"
-						   title="clique para alterar os dados do item"
-						   class="editarItem"
-						   idPlanilhaAprovacao="<?php echo $planilha['idPlanilhaAprovacao']; ?>"
-						   idPlanilhaAprovacaoPai="<?php echo $planilha['idPlanilhaAprovacaoPai']; ?>"
-						><?php echo $planilha['Item']; ?></a>
+                                            <a href="#"
+					       style="color: <?php echo $corLinha; ?> !important;"
+					       title="clique para alterar os dados do item"
+					       class="editarItem"
+					       idPlanilhaAprovacao="<?php echo $planilha['idPlanilhaAprovacao']; ?>"
+					       idPlanilhaAprovacaoPai="<?php echo $planilha['idPlanilhaAprovacaoPai']; ?>"
+					    ><?php echo $planilha['Item']; ?></a>
                                             <?php } else {
-                                                echo $planilha['Item']; ?>
+                                            echo $planilha['Item']; ?>
                                             <?php } ?>
 
                                         </td>
+					<td class="direita textDias"><?php echo $planilha['Unidade']; ?></td>
                                         <td class="direita textDias"><?php echo $planilha['QtdeDias']; ?></td>
                                         <td class="direita textQuantidade"><?php echo $planilha['Quantidade']; ?></td>
                                         <td class="direita textOcorrencia"><?php echo $planilha['Ocorrencia']; ?></td>
